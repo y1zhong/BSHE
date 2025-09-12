@@ -163,7 +163,7 @@ class BSHE_Gibbs():
         self.res += self.theta_eta @ self.B_prime
         precision = self.B_prime_sq / self.sig2_eps + torch.eye(self.L_eta) / self.sig2_eta
        
-        R = torch.linalg.cholesky(precision, upper=True)
+        R = torch.linalg.cholesky(precision, upper=True)  + torch.eye(precision.shape[0]) * 1e-4
         temp = (self.res @ self.B_prime.t()) / self.sig2_eps
         Z = torch.randn(self.N, self.L_eta)
 
